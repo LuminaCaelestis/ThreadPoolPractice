@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThreadPool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+459897c53deabc2eeb507b23f71b7e62ea6233f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThreadPool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThreadPool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
