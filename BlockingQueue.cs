@@ -65,6 +65,26 @@ namespace Flos.Container
             }
         }
 
+        public bool TryPop(out T item, int millisecondsTimeout)
+        {
+            lock (_lock)
+            {
+                while (IsEmpty())
+                {
+                    if (_addingComplete)
+                    {
+                        #pragma warning disable CS8601 // 引用类型赋值可能为 null。
+                        item = default;
+                        return false;
+                    }
+                    Monitor.TryEnter
+                }
+                item = _queue.Dequeue();
+                Monitor.PulseAll(_lock); // 通知生产者队列空间可用
+                return true;
+            }
+        }
+
         public void Clear()
         {
             lock (_lock)

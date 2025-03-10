@@ -47,9 +47,28 @@ namespace Flos.Threading
             }
         }
 
-        public static void WorkerThread()
+        public static void Run(Action task)
         {
+            if(_runningThreadCount >= _alivedThreadCount && _alivedThreadCount < MaxThreadCount)
+            {
+                var thread = new Thread(WorkerThread);
+                thread.Start();
+                Interlocked.Increment(ref _alivedThreadCount);
+            }
+            _taskQueue.TryPush(task);
         }
 
+        private static void WorkerThread()
+        {
+            while(!_shutdown)
+            {
+                var isPopped = _taskQueue.TryPop(out var task);
+                if(!isPopped)
+                {
+                    continue;
+                }
+                task?.Invoke();
+            }
+        }
     }
 }
