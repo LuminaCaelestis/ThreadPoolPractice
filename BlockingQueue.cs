@@ -19,8 +19,11 @@ namespace Flos.Container
 
         public void AddingComplete()
         {
+            lock (_lock)
+            {
                 _addingComplete = true;
                 Monitor.PulseAll(_lock);
+            }
         }
 
         public bool TryPush(T item)

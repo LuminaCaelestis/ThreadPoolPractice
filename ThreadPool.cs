@@ -74,5 +74,15 @@ namespace Flos.Threading
                 Interlocked.Decrement(ref _runningThreadCount);
             }
         }
+
+        public static void WhenAll()
+        {
+            while(_runningThreadCount > 0 || !_taskQueue.IsEmpty())
+            {
+                Thread.Sleep(100);
+            }
+            _taskQueue.AddingComplete();
+            _shutdown = true;
+        }
     }
 }

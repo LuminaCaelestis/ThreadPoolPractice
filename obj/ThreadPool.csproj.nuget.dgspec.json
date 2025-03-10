@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj": {}
+    "c:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj": {
+    "c:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj",
+        "projectUniqueName": "c:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj",
         "projectName": "ThreadPool",
-        "projectPath": "C:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj",
+        "projectPath": "c:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj",
         "packagesPath": "C:\\Users\\Luminae\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\obj\\",
+        "outputPath": "c:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\DevelopmentEnvironment\\VS\\Shared\\NuGetPackages"
