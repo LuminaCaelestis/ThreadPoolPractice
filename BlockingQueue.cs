@@ -27,25 +27,17 @@ namespace Flos.Container
         {
             lock (_lock)
             {
-                while (IsFull())
+                if(IsFull() || _addingComplete)
                 {
-                    if (_addingComplete) 
-                    { 
-                        return false; 
-                    }
-                    Monitor.Wait(_lock);
-                }
-                if (_addingComplete) 
-                { 
-                    return false; 
+                    return false;
                 }
                 _queue.Enqueue(item);
-                Monitor.PulseAll(_lock); // 仅在状态真正变化时通知消费者
+                Monitor.Pulse(_lock);
                 return true;
             }
         }
 
-        public bool TryPop(out T item)
+        public bool Pop(out T item)
         {
             lock (_lock)
             {
@@ -53,44 +45,34 @@ namespace Flos.Container
                 {
                     if (_addingComplete)
                     {
-                        #pragma warning disable CS8601 // 引用类型赋值可能为 null。
+                        #pragma warning disable CS8601
                         item = default;
                         return false;
                     }
                     Monitor.Wait(_lock);
                 }
                 item = _queue.Dequeue();
-                Monitor.PulseAll(_lock); // 通知生产者队列空间可用
+                Monitor.Pulse(_lock);
                 return true;
             }
         }
 
-        public bool TryPop(out T item, int millisecondsTimeout)
+        public bool Pop(out T? item, int millisecondsTimeout)
         {
             lock (_lock)
             {
                 while (IsEmpty())
                 {
-                    if (_addingComplete)
+                    if (_addingComplete || Monitor.Wait(_lock, millisecondsTimeout))
                     {
-                        #pragma warning disable CS8601 // 引用类型赋值可能为 null。
+                        #pragma warning disable CS8601
                         item = default;
                         return false;
                     }
-                    Monitor.TryEnter
                 }
                 item = _queue.Dequeue();
-                Monitor.PulseAll(_lock); // 通知生产者队列空间可用
+                Monitor.Pulse(_lock);
                 return true;
-            }
-        }
-
-        public void Clear()
-        {
-            lock (_lock)
-            {
-                _queue.Clear();
-                Monitor.PulseAll(_lock);
             }
         }
 

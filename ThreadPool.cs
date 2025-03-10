@@ -14,6 +14,8 @@ namespace Flos.Threading
 
         private static bool _shutdown = false;
 
+        public static int TimeoutMilliseconds { get; set; } = 3000;
+
         private static readonly List<Thread> _coreThreadList = new();
 
         private static readonly Container.BlockingQueue<Action> _taskQueue = new();
@@ -38,12 +40,12 @@ namespace Flos.Threading
         {
             while(!_shutdown)
             {
-                var isPopped = _taskQueue.TryPop(out var task);
-                if(!isPopped)
+                if(_taskQueue.Pop(out var task)) // pop会阻塞线程
                 {
-                    continue;
+                    Interlocked.Increment(ref _runningThreadCount);
+                    task?.Invoke();
+                    Interlocked.Decrement(ref _runningThreadCount);
                 }
-                task?.Invoke();
             }
         }
 
@@ -62,12 +64,14 @@ namespace Flos.Threading
         {
             while(!_shutdown)
             {
-                var isPopped = _taskQueue.TryPop(out var task);
+                var isPopped = _taskQueue.Pop(out var task, TimeoutMilliseconds);
                 if(!isPopped)
                 {
-                    continue;
+                    break;
                 }
+                Interlocked.Increment(ref _runningThreadCount);
                 task?.Invoke();
+                Interlocked.Decrement(ref _runningThreadCount);
             }
         }
     }
