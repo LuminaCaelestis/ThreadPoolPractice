@@ -16,7 +16,7 @@ namespace Flos.Threading
 
         private static object _aliveCntLock = new();
 
-        public static int TimeoutMilliseconds { get; set; } = 3000;
+        public static int TimeoutMilliseconds { get; set; } = 60000;
 
         private static readonly List<Thread> _coreThreadList = new();
 
@@ -36,6 +36,7 @@ namespace Flos.Threading
             for(int i = 0; i < CoreThreadCount; ++i)
             {
                 var thread = new Thread(CoreThread);
+                thread.IsBackground = true;
                 _coreThreadList.Add(thread);
                 thread.Start();
                 Interlocked.Increment(ref _alivedThreadCount);
@@ -64,9 +65,10 @@ namespace Flos.Threading
 
         public static bool Run(Action task)
         {
-            if(_taskQueue.Count >= _runningThreadCount && _alivedThreadCount < MaxThreadCount)
+            if(_taskQueue.Count >= _alivedThreadCount && _alivedThreadCount < MaxThreadCount)
             {
                 var thread = new Thread(WorkerThread);
+                thread.IsBackground = true;
                 thread.Start();
                 Interlocked.Increment(ref _alivedThreadCount);
             }

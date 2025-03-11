@@ -12,7 +12,7 @@ namespace Program
             Stopwatch sw = new ();
             Console.WriteLine(Environment.ProcessorCount);
             sw.Start();
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < 50; i++)
             {
                 int index = i;
                 Flos.Threading.ThreadPool.Run(() => IncrementRes());
@@ -43,6 +43,4 @@ namespace Program
             }
         }
     }
-
-
 }

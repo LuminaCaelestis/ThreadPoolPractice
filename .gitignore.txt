@@ -1,20 +1,7 @@
-# 忽略 VSCode 相关的本地配置文件
 .vscode/
-
-# 忽略编译后的二进制文件
 bin/
 obj/
-
-# 忽略依赖文件夹
-node_modules/
 packages/
-
-# 忽略日志文件
 *.log
 *.tmp
-
-# 忽略系统文件
-.DS_Store
-Thumbs.db
-
 .vs/
