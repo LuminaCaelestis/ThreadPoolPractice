@@ -15,7 +15,7 @@ namespace Program
             for (int i = 0; i < 40; i++)
             {
                 int index = i;
-                Flos.Threading.ThreadPool.Run(() => HeavyJob(index));
+                Flos.Threading.ThreadPool.Run(() => IncrementRes());
             }
             
             Flos.Threading.ThreadPool.WhenAll();
@@ -29,5 +29,19 @@ namespace Program
             Thread.Sleep(5000);
             Console.WriteLine($" Thread {Environment.CurrentManagedThreadId} - Job {i} Done");
         }
+
+        public static int res = 0;
+        private static object _resLock = new();
+
+        public static void IncrementRes()
+        {
+            lock(_resLock)
+            {
+                ++res;
+                Console.WriteLine($"Thread {Environment.CurrentManagedThreadId} done. res: - {res}");
+            }
+        }
     }
+
+
 }
