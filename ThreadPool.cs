@@ -12,7 +12,7 @@ namespace Flos.Threading
 
         public static int _alivedThreadCount;
 
-        private static bool _shutdown = false;
+        private static byte _shutdown = 0;
 
         private static object _aliveCntLock = new();
 
@@ -44,20 +44,27 @@ namespace Flos.Threading
 
         private static void CoreThread()
         {
-            while(!_shutdown)
+            while(_shutdown == 0)
             {
                 if(_taskQueue.Pop(out var task)) // pop会阻塞线程
                 {
                     Interlocked.Increment(ref _runningThreadCount);
-                    task?.Invoke();
-                    Interlocked.Decrement(ref _runningThreadCount);
+                    try
+                    {
+                        task?.Invoke();
+                    }
+                    finally
+                    {
+                        Interlocked.Decrement(ref _runningThreadCount);
+                    }
                 }
             }
+            Interlocked.Decrement(ref _alivedThreadCount);
         }
 
         public static bool Run(Action task)
         {
-            if(_runningThreadCount >= _alivedThreadCount && _alivedThreadCount < MaxThreadCount)
+            if(_taskQueue.Count >= _runningThreadCount && _alivedThreadCount < MaxThreadCount)
             {
                 var thread = new Thread(WorkerThread);
                 thread.Start();
@@ -68,18 +75,30 @@ namespace Flos.Threading
 
         private static void WorkerThread()
         {
-            while(!_shutdown)
+            try
             {
-                var isPopped = _taskQueue.Pop(out var task, TimeoutMilliseconds);
-                if(!isPopped)
+                while(_shutdown == 0)
                 {
-                    break;
+                    var isPopped = _taskQueue.Pop(out var task, TimeoutMilliseconds);
+                    if(!isPopped)
+                    {
+                        break;
+                    }
+                    Interlocked.Increment(ref _runningThreadCount);
+                    try
+                    {
+                        task?.Invoke();
+                    }
+                    finally
+                    {
+                        Interlocked.Decrement(ref _runningThreadCount);
+                    }
                 }
-                Interlocked.Increment(ref _runningThreadCount);
-                task?.Invoke();
-                Interlocked.Decrement(ref _runningThreadCount);
             }
-            Interlocked.Decrement(ref _alivedThreadCount);
+            finally
+            {
+                Interlocked.Decrement(ref _alivedThreadCount);
+            }
         }
 
         public static void WhenAll()
@@ -88,7 +107,7 @@ namespace Flos.Threading
             {
                 Thread.Sleep(100);
             }
-            _shutdown = true;
+            Interlocked.Exchange(ref _shutdown, 1);
             _taskQueue.AddingComplete();
         }
     }

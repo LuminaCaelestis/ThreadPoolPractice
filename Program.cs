@@ -17,8 +17,9 @@ namespace Program
                 int index = i;
                 Flos.Threading.ThreadPool.Run(() => IncrementRes());
             }
-            
+            Console.WriteLine("All tasks pushed to queue");
             Flos.Threading.ThreadPool.WhenAll();
+            Console.WriteLine("All tasks done");
             sw.Stop();
             Console.WriteLine($"Elapsed time: {sw.ElapsedMilliseconds} ms");
         }
@@ -38,7 +39,7 @@ namespace Program
             lock(_resLock)
             {
                 ++res;
-                Console.WriteLine($"Thread {Environment.CurrentManagedThreadId} done. res: - {res}");
+                Console.WriteLine($"Thread {Environment.CurrentManagedThreadId} done - res: {res}");
             }
         }
     }

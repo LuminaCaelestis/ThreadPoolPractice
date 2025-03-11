@@ -1,0 +1,15 @@
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\bin\Debug\net9.0\ThreadPool.exe
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\bin\Debug\net9.0\ThreadPool.deps.json
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\bin\Debug\net9.0\ThreadPool.runtimeconfig.json
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\bin\Debug\net9.0\ThreadPool.dll
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\bin\Debug\net9.0\ThreadPool.pdb
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ThreadPool.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ThreadPool.AssemblyInfoInputs.cache
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ThreadPool.AssemblyInfo.cs
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ThreadPool.csproj.CoreCompileInputs.cache
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ThreadPool.sourcelink.json
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ThreadPool.dll
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\refint\ThreadPool.dll
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ThreadPool.pdb
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ThreadPool.genruntimeconfig.cache
+c:\Users\Luminae\Documents\Project\Csharp\ThreadPool\obj\Debug\net9.0\ref\ThreadPool.dll

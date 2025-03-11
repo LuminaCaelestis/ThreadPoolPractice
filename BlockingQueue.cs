@@ -10,6 +10,8 @@ namespace Flos.Container
         private readonly object _lock = new();
 
         private readonly int _maxCapacity = maxCapacity;
+        
+        public int Count => _queue.Count;
 
         private byte _addingComplete = 0;
 
