@@ -11,9 +11,9 @@ namespace Flos.Container
 
         private readonly int _maxCapacity = maxCapacity;
 
-        private bool _addingComplete = false;
+        private byte _addingComplete = 0;
 
-        public bool IsFull() => _maxCapacity != -1 &&_queue.Count >= _maxCapacity;
+        public bool IsFull() => _maxCapacity != -1 && _queue.Count >= _maxCapacity;
 
         public bool IsEmpty() => _queue.Count == 0;
 
@@ -21,7 +21,7 @@ namespace Flos.Container
         {
             lock (_lock)
             {
-                _addingComplete = true;
+                Interlocked.Exchange(ref _addingComplete, 1);
                 Monitor.PulseAll(_lock);
             }
         }
@@ -30,7 +30,7 @@ namespace Flos.Container
         {
             lock (_lock)
             {
-                if(IsFull() || _addingComplete)
+                if(IsFull() || _addingComplete == 1)
                 {
                     return false;
                 }
@@ -46,7 +46,7 @@ namespace Flos.Container
             {
                 while (IsEmpty())
                 {
-                    if (_addingComplete)
+                    if (_addingComplete == 1)
                     {
                         #pragma warning disable CS8601
                         item = default;
@@ -66,7 +66,7 @@ namespace Flos.Container
             {
                 while (IsEmpty())
                 {
-                    if (_addingComplete || Monitor.Wait(_lock, millisecondsTimeout))
+                    if (_addingComplete == 1 || !Monitor.Wait(_lock, millisecondsTimeout))
                     {
                         #pragma warning disable CS8601
                         item = default;
@@ -83,7 +83,7 @@ namespace Flos.Container
         {
             lock (_lock)
             {
-                _addingComplete = false;
+                Interlocked.Exchange(ref _addingComplete, 0);
             }
         }       
     }

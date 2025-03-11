@@ -14,6 +14,8 @@ namespace Flos.Threading
 
         private static bool _shutdown = false;
 
+        private static object _aliveCntLock = new();
+
         public static int TimeoutMilliseconds { get; set; } = 3000;
 
         private static readonly List<Thread> _coreThreadList = new();
@@ -25,8 +27,12 @@ namespace Flos.Threading
             _alivedThreadCount = 0;
             _runningThreadCount = 0;
             MaxThreadCount = Environment.ProcessorCount * 2;
-            var CoreThreadCount = Environment.ProcessorCount;
+            CoreStart();
+        }
 
+        public static void CoreStart()
+        {
+            var CoreThreadCount = Environment.ProcessorCount;
             for(int i = 0; i < CoreThreadCount; ++i)
             {
                 var thread = new Thread(CoreThread);
@@ -49,7 +55,7 @@ namespace Flos.Threading
             }
         }
 
-        public static void Run(Action task)
+        public static bool Run(Action task)
         {
             if(_runningThreadCount >= _alivedThreadCount && _alivedThreadCount < MaxThreadCount)
             {
@@ -57,7 +63,7 @@ namespace Flos.Threading
                 thread.Start();
                 Interlocked.Increment(ref _alivedThreadCount);
             }
-            _taskQueue.TryPush(task);
+            return _taskQueue.TryPush(task);
         }
 
         private static void WorkerThread()
@@ -73,6 +79,7 @@ namespace Flos.Threading
                 task?.Invoke();
                 Interlocked.Decrement(ref _runningThreadCount);
             }
+            Interlocked.Decrement(ref _alivedThreadCount);
         }
 
         public static void WhenAll()
@@ -81,8 +88,8 @@ namespace Flos.Threading
             {
                 Thread.Sleep(100);
             }
-            _taskQueue.AddingComplete();
             _shutdown = true;
+            _taskQueue.AddingComplete();
         }
     }
 }
