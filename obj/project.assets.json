@@ -8,31 +8,24 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Luminae\\.nuget\\packages\\": {},
-    "C:\\DevelopmentEnvironment\\VS\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Csharp\\repos\\ThreadPoolPractice\\ThreadPool.csproj",
       "projectName": "ThreadPool",
-      "projectPath": "C:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\ThreadPool.csproj",
-      "packagesPath": "C:\\Users\\Luminae\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Luminae\\Documents\\Project\\Csharp\\ThreadPool\\obj\\",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Csharp\\repos\\ThreadPoolPractice\\ThreadPool.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Administrator\\Documents\\Csharp\\repos\\ThreadPoolPractice\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\DevelopmentEnvironment\\VS\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Luminae\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
